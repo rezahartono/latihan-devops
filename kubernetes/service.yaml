@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: example-app-service
+  namespace: latihan
 spec:
   selector:
     app: example-app
