@@ -10,14 +10,17 @@ RUN apt-get update && \
     gnupg \
     lsb-release \
     iptables \
-    uidmap && \
+    uidmap \
+    docker.io && \
     rm -rf /var/lib/apt/lists/*
-
-# Install Docker
-RUN curl -fsSL https://get.docker.com | sh
 
 # Disable TLS (optional, recommended for CI)
 ENV DOCKER_TLS_CERTDIR=""
+
+# install kubectl (latest stable)
+RUN curl -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
 
 # Docker daemon ports
 EXPOSE 2375
